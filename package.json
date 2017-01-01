@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "bcryptjs": "^2.4.0",
     "body-parser": "^1.15.2",
     "cron": "^1.2.1",
     "express": "^4.14.0",
     "jsonwebtoken": "^7.2.1",
-    "lodash": "^4.17.3",
+    "lodash": "^4.17.4",
     "mongodb": "^2.2.16",
     "mongoose": "^4.7.4",
     "node-schedule": "^1.2.0",
@@ -22,8 +23,11 @@
     "nodemon": "^1.11.0",
     "supertest": "^2.0.1"
   },
+  "engine": {
+    "node": "6.8.1"
+  },
   "scripts": {
-    "start":"node server/bot/bot.js",
+    "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

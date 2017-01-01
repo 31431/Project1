@@ -1,4 +1,5 @@
 require('./config/config.js');
+require('./bot/bot.js'); //For Telegram Bot
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -6,61 +7,35 @@ const {ObjectID} = require('mongodb');
 const _ = require('lodash');
 
 const {Status} = require('./models/status.js');
+const {User} = require('./models/user.js');
+const {Station} = require('./models/statusData.js');
 const {mongoose} = require('./db/mongoose');
 
 const app = new express();
 const port = process.env.PORT;
 
-app.use(bodyParser.json());
+app.use(bodyParser.json());	
 
 app.get('/',(req,res)=>{
-	res.send('Welcome to the Status Tracker App API');
-});
-
-app.post('/create',(req,res)=>{
-	
-	var body = _.pick(req.body,['orderNumber','HP','customer']);
-	body.updated = new ObjectID();
-
-	var work = new Status(body);
-
-	work.save().then((doc)=>{
-		console.log('Save successfully\n');
-		console.log(JSON.stringify(doc,undefined,2));
-		res.status(200).send(doc);
-	}, (e)=>{
-		console.log('Error ',e);
-		res.status(400).send(e);
-	})
+	res.status(200).send('Welcome! Please sign in');
 })
 
-app.get('/status/:orderNumber',(req,res)=>{
-	var orderNumber = req.params.orderNumber;
+//GET /:id => To get status by customers. No Auth required
+app.get('/:id',(req,res)=>{
+	var id = req.params.id;
 
-	Status.findOne({orderNumber}).then((workStatus)=>{
-		if(!workStatus){
-			return res.status(400).send({text:'No status found!'});
-		};
-		res.status(200).send(workStatus);
-	},(e)=>{
-		res.status(400).send(e);
-	})
-})
-
-app.patch('/update/:orderNumber',(req,res)=>{
-	var orderNumber = req.params.orderNumber;
-	var status = req.body.status;
-	var updated = new ObjectID();
-
-	Status.findOneAndUpdate({orderNumber},{$set:{status,updated}},{new: true}).then((workStatus)=>{
-		if(!workStatus){
-			return res.status(404).send({text:'Status not found!'});
+	Status.findOne({_id:id}).then((status)=>{
+		if(!status){
+			return res.status(404).send();
 		}
-		res.status(200).send({workStatus});
-	},(e)=>{
-		res.status(400).send(e);
-	})	
-})	
+
+		res.status(200).send(status);
+	})
+})
+//GET /pcl/status => Get All status
+//POST /pcl/create => Creating new status
+//PATCH /pcl/:id => Update status for a specific job
+//GET /pcl/:station => Getting all jobs at that station
 
 
 app.listen(port,()=>{
