@@ -32,6 +32,14 @@ app.get('/:id',(req,res)=>{
 		res.status(200).send(status);
 	})
 })
+
+app.get('/pcl/status',(req,res)=>{
+	Status.find().then((status)=>{
+		res.status(200).send(status);
+	},(e)=>{
+		res.status(400).send(e);
+	})
+})
 //GET /pcl/status => Get All status
 //POST /pcl/create => Creating new status
 //PATCH /pcl/:id => Update status for a specific job
