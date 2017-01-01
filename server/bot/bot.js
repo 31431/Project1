@@ -16,7 +16,6 @@ var rule = new CronJob('0 0 8 * * *',()=>{
 
 var keepHerokuAlive = new CronJob('0 * * * * *',()=>{
   request('https://polar-savannah-71286.herokuapp.com/',(err,res,body)=>{
-    bot.sendMessage(253594721,`Connected to heroku at ${new Date()}. `);
     if(err){
       bot.sendMessage(253594721,'Error!');
     }
