@@ -14,9 +14,18 @@ var rule = new CronJob('0 0 8 * * *',()=>{
 	bot.sendMessage(253594721,`Good Morning Krittin!!🎊 🎉🎊 🎉🎁 It's ${Date()}`);
 },true,'Asia/Singapore');
 
-var rule = new CronJob('0 0 1 1 *',()=>{
+var keepHerokuAlive = new CronJob('0 * * * * *',()=>{
+  request('https://polar-savannah-71286.herokuapp.com/',(err,res,body)=>{
+    bot.sendMessage(253594721,'Connected to heroku.');
+    If(err){
+      bot.sendMessage(253594721,'Error!');
+    }
+  })
+
   bot.sendMessage(253594721,`Happy New Year Krittin!!🎊 🎉🎊 🎉🎁 It's ${Date()}`);
 },true,'Asia/Singapore');
+
+
 
 bot.onText(/\/getTodos/,(msg)=>{
 	var text = 'All Todos:';
