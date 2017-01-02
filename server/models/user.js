@@ -15,7 +15,7 @@ var UserSchema = new mongoose.Schema({
 	password:{
 		type: String,
 		minlength: 8
-	}
+	},
 	tokens:[{
 		access:{
 			type: String,
