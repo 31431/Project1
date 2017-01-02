@@ -35,33 +35,33 @@ var keepHerokuAlive = new CronJob('0 * * * * *',()=>{
 
 
 
-bot.onText(/\/getTodos/,(msg)=>{
-	var text = 'All Todos:';
+// bot.onText(/\/getTodos/,(msg)=>{
+// 	var text = 'All Todos:';
 
-	bot.sendMessage(msg.chat.id,`Hi ${msg.from.first_name} ${msg.from.last_name}! We are getting todos for you.`);
-	console.log('---------MSG---------');
- 	console.log(msg);
-  	console.log('---------MATCH---------');
-  	console.log('f');
-  	request(todoUrl+'/todos',(err,res,body)=>{
+// 	bot.sendMessage(msg.chat.id,`Hi ${msg.from.first_name} ${msg.from.last_name}! We are getting todos for you.`);
+// 	console.log('---------MSG---------');
+//  	console.log(msg);
+//   	console.log('---------MATCH---------');
+//   	console.log('f');
+//   	request(todoUrl+'/todos',(err,res,body)=>{
   		
-  		bodyObject = JSON.parse(body)
-  		console.log(bodyObject);
+//   		bodyObject = JSON.parse(body)
+//   		console.log(bodyObject);
 
-  		for(i = 1; i<=bodyObject.todos.length ; i++){
-  			var todo = bodyObject.todos[i-1];
-  			if(todo.completed === false){
-  				lastText = '[Incomplete]';
-  			} else {
-  				lastText= '[Complete]';  			
-  			}
-  			text = text+`\nTodo ${i}: ${todo.text} ${lastText}`;
-  		}
-  		bot.sendMessage(msg.chat.id,text); 
+//   		for(i = 1; i<=bodyObject.todos.length ; i++){
+//   			var todo = bodyObject.todos[i-1];
+//   			if(todo.completed === false){
+//   				lastText = '[Incomplete]';
+//   			} else {
+//   				lastText= '[Complete]';  			
+//   			}
+//   			text = text+`\nTodo ${i}: ${todo.text} ${lastText}`;
+//   		}
+//   		bot.sendMessage(msg.chat.id,text); 
   		
-  	});
+//   	});
   	 	
-})
+// })
 
 // bot.onText(/\/getKeyboard/,(msg)=>{
 //   var chatID = msg.chat.id;
