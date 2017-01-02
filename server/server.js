@@ -21,10 +21,10 @@ app.get('/',(req,res)=>{
 })
 
 //GET /:id => To get status by customers. No Auth required
-app.get('/:id',(req,res)=>{
-	var id = req.params.id;
-
-	Status.findOne({_id:id}).then((status)=>{
+app.get('/:orderNumber',(req,res)=>{
+	var orderNumber = req.params.orderNumber;
+	Status.findOne({orderNumber}).then((status)=>{
+		console.log(status);
 		if(!status){
 			return res.status(404).send();
 		}
