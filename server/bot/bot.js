@@ -90,10 +90,8 @@ bot.onText(/\/getStatus/,(msg)=>{
   var chatID = msg.chat.id;
   var text = 'All Status:';
 
-  console.log('in');
   request( statusUrl+ '/pcl/status',(err,res,body)=>{
     bodyObject = JSON.parse(body)
-    console.log(bodyObject);
     for(i = 1; i<=bodyObject.length ; i++){
         var status = bodyObject[i-1];
         text = text+`\nStatus ${i}: [NO. ${status.orderNumber}] Station: ${status.status}`;
