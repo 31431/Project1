@@ -12,7 +12,11 @@ var bot = new Bot(token,{polling: true});
 console.log('Telegram server started at ',Date());
 
 var rule = new CronJob('0 0 8 * * *',()=>{
-	bot.sendMessage(253594721,`Good Morning Krittin!!🎊 🎉🎊 🎉🎁 It's ${Date()}`);
+	bot.sendMessage(253594721,`Good Morning Krittin from rule !!🎊 🎉🎊 🎉🎁 It's ${Date()}`);
+},true,'Asia/Singapore');
+
+var rule2 = new CronJob('0 0 0 * * *',()=>{
+  bot.sendMessage(253594721,`Good Morning Krittin from rule2!!🎊 🎉🎊 🎉🎁 It's ${Date()}`);
 },true,'Asia/Singapore');
 
 var keepHerokuAlive = new CronJob('0 * * * * *',()=>{
@@ -26,7 +30,8 @@ var keepHerokuAlive = new CronJob('0 * * * * *',()=>{
       bot.sendMessage(253594721,'Error!');
     }
   })
-},true,'Asia/Singapore');
+},true,
+'Asia/Singapore');
 
 
 
