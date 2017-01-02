@@ -1,5 +1,5 @@
 require('./config/config.js');
-require('./bot/bot.js'); //For Telegram Bot
+// require('./bot/bot.js'); //For Telegram Bot
 
 const express = require('express');
 const bodyParser = require('body-parser');
