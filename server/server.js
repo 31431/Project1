@@ -55,8 +55,38 @@ app.post('/pcl/create',(req,res)=>{
 		res.status(404).send(e);
 	})
 })
+
 //PATCH /pcl/:id => Update status for a specific job
+app.patch('/pcl/update/:orderNumber',(req,res)=>{
+	var body = _.pick(req.body,['status']);
+	var orderNumber = req.params.orderNumber;
+
+	Status.findOneAndUpdate({
+		orderNumber: orderNumber
+	},{$set:body},{new:true}).then((status)=>{
+		if(!status){
+			return res.status(404).send();
+		}
+
+		res.send({status});
+	}).catch((e)=>{
+		return res.status(400).send();
+	})
+});
+
 //GET /pcl/:station => Getting all jobs at that station
+app.get('/pcl/:station',(req,res)=>{
+	var station  = req.params.station;
+
+	Status.find({status: station}).then((status)=>{
+		if(status.length === 0){
+			return res.status(404).send({text:'status not found'});
+		}
+		res.send(status);
+	}).catch((e)=>{
+		return res.status(400).send();
+	})
+})
 
 
 app.listen(port,()=>{

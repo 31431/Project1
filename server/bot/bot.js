@@ -105,6 +105,13 @@ bot.onText(/\/getStatus/,(msg)=>{
   })
 
 })
+
+bot.onText(/\/create/,(msg)=>{
+  var chatID = msg.chat.id;
+  var text = 'Please type in this format:\n order numer - customer - sales - jobType';
+  bot.sendMessage(chatID,text);
+
+})
   
 
 
