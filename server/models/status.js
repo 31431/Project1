@@ -10,8 +10,8 @@ var StatusSchema = new mongoose.Schema({
 		type: Number,
 		require: true,
 		trim: true,
-		minlength: 1,
-		unique: true
+		unique: true,
+		minlength: 1
 	},
 	//When the process has been updated
 	updated: {
@@ -21,7 +21,7 @@ var StatusSchema = new mongoose.Schema({
 	//Status of the work
 	status: {
 		type: Number,
-		default: 0,
+		default: 1,
 		minlength: 1
 	},
 	customer:{

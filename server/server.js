@@ -33,6 +33,8 @@ app.get('/:id',(req,res)=>{
 	})
 })
 
+
+//GET /pcl/status => Get All status
 app.get('/pcl/status',(req,res)=>{
 	Status.find().then((status)=>{
 		res.status(200).send(status);
@@ -40,8 +42,19 @@ app.get('/pcl/status',(req,res)=>{
 		res.status(400).send(e);
 	})
 })
-//GET /pcl/status => Get All status
+
 //POST /pcl/create => Creating new status
+app.post('/pcl/create',(req,res)=>{
+	body = _.pick(req.body,['orderNumber','customer','saleIC','jobType']);
+	var status = new Status(body);
+	
+	status.save().then((status)=>{
+		console.log(status);
+		res.send(status);
+	},(e)=>{
+		res.status(404).send(e);
+	})
+})
 //PATCH /pcl/:id => Update status for a specific job
 //GET /pcl/:station => Getting all jobs at that station
 

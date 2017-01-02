@@ -4,7 +4,8 @@ const CronJob = require('cron').CronJob;
 const CronTime = require('cron').CronTime;
 
 const token = '250370137:AAENNkKNX9TUHr9dye1FS4w2FYipzUmLSZg';
-const url = 'https://fathomless-caverns-40321.herokuapp.com';
+const todoUrl = 'https://fathomless-caverns-40321.herokuapp.com';
+const statusUrl = 'https://polar-savannah-71286.herokuapp.com';
 
 var bot = new Bot(token,{polling: true});
 
@@ -15,12 +16,12 @@ var rule = new CronJob('0 0 8 * * *',()=>{
 },true,'Asia/Singapore');
 
 var keepHerokuAlive = new CronJob('0 * * * * *',()=>{
-  request('https://polar-savannah-71286.herokuapp.com/',(err,res,body)=>{
+  request('https://polar-savannah-71286.herokuapp.com',(err,res,body)=>{
     if(err){
       bot.sendMessage(253594721,'Error!');
     }
   })
-  request(url,(err,res,body)=>{
+  request(todoUrl,(err,res,body)=>{
     if(err){
       bot.sendMessage(253594721,'Error!');
     }
@@ -37,7 +38,7 @@ bot.onText(/\/getTodos/,(msg)=>{
  	console.log(msg);
   	console.log('---------MATCH---------');
   	console.log('f');
-  	request(url+'/todos',(err,res,body)=>{
+  	request(todoUrl+'/todos',(err,res,body)=>{
   		
   		bodyObject = JSON.parse(body)
   		console.log(bodyObject);
@@ -57,36 +58,50 @@ bot.onText(/\/getTodos/,(msg)=>{
   	 	
 })
 
-bot.onText(/\/getKeyboard/,(msg)=>{
+// bot.onText(/\/getKeyboard/,(msg)=>{
+//   var chatID = msg.chat.id;
+//   var options1 = {
+//     reply_markup: JSON.stringify({
+//       keyboard: [
+//         [{ text: 'Some button text 1'}],
+//         [{ text: 'Some button text 2'}],
+//         [{ text: 'Some button text 3'}]
+//       ],
+//       resize_keyboard: true,
+//      one_time_keyboard: true
+//     })
+//   };
+//   bot.sendMessage(msg.chat.id, 'Some text giving three inline buttons', options1).then(function (sended) {
+//      bot.sendMessage(msg.chat.id,'Please choose something')
+//   });
+
+//   bot.onText(/.+./g,(msg)=>{
+//     console.log(msg.text);
+//     bot.sendMessage(chatID,`${msg.text} was sent.`);
+
+//     bot.onText(/.+./g,(msg)=>{
+//       console.log(msg.text);
+//       bot.sendMessage(chatID,`Thank you!`);
+//     })
+//   });
+// } )
+
+bot.onText(/\/getStatus/,(msg)=>{
   var chatID = msg.chat.id;
-  var options1 = {
-    reply_markup: JSON.stringify({
-      keyboard: [
-        [{ text: 'Some button text 1'}],
-        [{ text: 'Some button text 2'}],
-        [{ text: 'Some button text 3'}]
-      ],
-      resize_keyboard: true,
-     one_time_keyboard: true
-    })
-  };
-  bot.sendMessage(msg.chat.id, 'Some text giving three inline buttons', options1).then(function (sended) {
-     bot.sendMessage(msg.chat.id,'Please choose something')
-  });
+  var text = 'All Status:';
 
-  bot.onText(/.+./g,(msg)=>{
-    console.log(msg.text);
-    bot.sendMessage(chatID,`${msg.text} was sent.`);
+  console.log('in');
+  request( statusUrl+ '/pcl/status',(err,res,body)=>{
+    bodyObject = JSON.parse(body)
+    console.log(bodyObject);
+    for(i = 1; i<=bodyObject.length ; i++){
+        var status = bodyObject[i-1];
+        text = text+`\nStatus ${i}: [NO. ${status.orderNumber}] Station: ${status.status}`;
+      }
+      bot.sendMessage(msg.chat.id,text); 
+  })
 
-    bot.onText(/.+./g,(msg)=>{
-      console.log(msg.text);
-      bot.sendMessage(chatID,`Thank you!`);
-    })
-  });
-
-  
-
-} )
+})
   
 
 
