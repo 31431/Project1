@@ -34,7 +34,6 @@ var keepHerokuAlive = new CronJob('0 * * * * *',()=>{
     if(err){
       bot.sendMessage(253594721,'Error!');
     }
-    console.log('ok');
   })
 },true,
 'Asia/Singapore');
