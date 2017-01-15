@@ -30,6 +30,12 @@ var keepHerokuAlive = new CronJob('0 * * * * *',()=>{
       bot.sendMessage(253594721,'Error!');
     }
   })
+  request('https://cleeque.herokuapp.com/',(err,res,body)=>{
+    if(err){
+      bot.sendMessage(253594721,'Error!');
+    }
+    console.log('ok');
+  })
 },true,
 'Asia/Singapore');
 
