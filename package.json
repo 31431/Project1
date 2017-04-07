@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "apiai": "^3.0.3",
     "bcryptjs": "^2.4.0",
     "body-parser": "^1.15.2",
     "cron": "^1.2.1",

@@ -7,36 +7,46 @@ const token = '250370137:AAENNkKNX9TUHr9dye1FS4w2FYipzUmLSZg';
 const todoUrl = 'https://fathomless-caverns-40321.herokuapp.com';
 const statusUrl = 'https://polar-savannah-71286.herokuapp.com';
 
-var bot = new Bot(token,{polling: true});
+// var bot = new Bot(token,{polling: true});
 
 console.log('Telegram server started at ',Date());
 
-var rule = new CronJob('0 0 8 * * *',()=>{
-	bot.sendMessage(253594721,`Good Morning Krittin from rule !!🎊 🎉🎊 🎉🎁 It's ${Date()}`);
-},true,'Asia/Singapore');
+// var rule = new CronJob('0 0 8 * * *',()=>{
+// 	bot.sendMessage(253594721,`Good Morning Krittin from rule !!🎊 🎉🎊 🎉🎁 It's ${Date()}`);
+// },true,'Asia/Singapore');
 
-var rule2 = new CronJob('0 0 0 * * *',()=>{
-  bot.sendMessage(253594721,`Good Morning Krittin from rule2!!🎊 🎉🎊 🎉🎁 It's ${Date()}`);
-},true,'Asia/Singapore');
+// var rule2 = new CronJob('0 0 0 * * *',()=>{
+//   bot.sendMessage(253594721,`Good Morning Krittin from rule2!!🎊 🎉🎊 🎉🎁 It's ${Date()}`);
+// },true,'Asia/Singapore');
 
-var keepHerokuAlive = new CronJob('0 * * * * *',()=>{
-  request('https://polar-savannah-71286.herokuapp.com',(err,res,body)=>{
-    if(err){
-      bot.sendMessage(253594721,'Error!');
-    }
-  })
-  request(todoUrl,(err,res,body)=>{
-    if(err){
-      bot.sendMessage(253594721,'Error!');
-    }
-  })
-  request('https://cleeque.herokuapp.com/',(err,res,body)=>{
-    if(err){
-      bot.sendMessage(253594721,'Error!');
-    }
-  })
-},true,
-'Asia/Singapore');
+// var keepHerokuAlive = new CronJob('0 */30 * * * *',()=>{
+//   var currentTime = new Date();
+//   bot.sendMessage(253594721,`Hello! ${currentTime}`);
+// },true,'Asia/Singapore');
+  // request('https://polar-savannah-71286.herokuapp.com',(err,res,body)=>{
+  //   if(err){
+  //     bot.sendMessage(253594721,'Error!');
+  //   }
+  // })
+  // request(todoUrl,(err,res,body)=>{
+  //   if(err){
+  //     bot.sendMessage(253594721,'Error!');
+  //   }
+  // })
+
+//   request('http://www.krittin.me/',(err,res,body)=>{
+//     if(err){
+//       bot.sendMessage(253594721,'Error!');
+//     }
+//   })
+
+//   request('https://cleeque.herokuapp.com/',(err,res,body)=>{
+//     if(err){
+//       bot.sendMessage(253594721,'Error!');
+//     }
+//   })
+// },true,
+// 'Asia/Singapore');
 
 
 
@@ -96,27 +106,33 @@ var keepHerokuAlive = new CronJob('0 * * * * *',()=>{
 //   });
 // } )
 
-bot.onText(/\/getStatus/,(msg)=>{
-  var chatID = msg.chat.id;
-  var text = 'All Status:';
+// bot.onText(/\/getStatus/,(msg)=>{
+//   var chatID = msg.chat.id;
+//   var text = 'All Status:';
 
-  request( statusUrl+ '/pcl/status',(err,res,body)=>{
-    bodyObject = JSON.parse(body)
-    for(i = 1; i<=bodyObject.length ; i++){
-        var status = bodyObject[i-1];
-        text = text+`\nStatus ${i}: [NO. ${status.orderNumber}] Station: ${status.status}`;
-      }
-      bot.sendMessage(msg.chat.id,text); 
-  })
+//   request( statusUrl+ '/pcl/status',(err,res,body)=>{
+//     bodyObject = JSON.parse(body)
+//     for(i = 1; i<=bodyObject.length ; i++){
+//         var status = bodyObject[i-1];
+//         text = text+`\nStatus ${i}: [NO. ${status.orderNumber}] Station: ${status.status}`;
+//       }
+//       bot.sendMessage(msg.chat.id,text); 
+//   })
 
-})
+// })
 
-bot.onText(/\/create/,(msg)=>{
-  var chatID = msg.chat.id;
-  var text = 'Please type in this format:\n order numer - customer - sales - jobType';
-  bot.sendMessage(chatID,text);
+// bot.on('message',(msg)=>{
+//   console.log('---------Done--------');
+//   console.log(msg);
+//   console.log(new Date());
+// })
 
-})
+// bot.onText(/\/create/,(msg)=>{
+//   var chatID = msg.chat.id;
+//   var text = 'Please type in this format:\n order numer - customer - sales - jobType';
+//   bot.sendMessage(chatID,text);
+
+// })
   
 
 
